@@ -1,0 +1,21 @@
+[
+  "tests/test_detector.py::test_detects_direct_secret_leak",
+  "tests/test_detector.py::test_detects_prompt_injection_with_secret_leak",
+  "tests/test_detector.py::test_safe_response_passes",
+  "tests/test_security_api.py::test_health_endpoint",
+  "tests/test_security_api.py::test_reject_empty_categories",
+  "tests/test_security_api.py::test_reject_unknown_category",
+  "tests/test_security_api.py::test_reject_unknown_target",
+  "tests/test_security_api.py::test_scan_detects_secret_leak",
+  "tests/test_security_api.py::test_scan_runs_only_prompt_injection_tests",
+  "tests/test_security_api.py::test_scan_runs_selected_categories",
+  "tests/test_security_api.py::test_security_scan_returns_report",
+  "tests/test_security_engine.py::test_scan_detects_secret_leak",
+  "tests/test_security_engine.py::test_scan_runs_only_prompt_injection_tests",
+  "tests/test_security_engine.py::test_scan_runs_selected_categories",
+  "tests/tests/test_security_api.py::test_health_endpoint",
+  "tests/tests/test_security_api.py::test_reject_empty_categories",
+  "tests/tests/test_security_api.py::test_reject_unknown_category",
+  "tests/tests/test_security_api.py::test_reject_unknown_target",
+  "tests/tests/test_security_api.py::test_security_scan_returns_report"
+]
