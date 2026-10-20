@@ -1,5 +1,6 @@
 [
   "tests/test_detector.py::test_detects_direct_secret_leak",
+  "tests/test_detector.py::test_detects_harmful_response_even_if_target_claims_blocked",
   "tests/test_detector.py::test_detects_prompt_injection_with_secret_leak",
   "tests/test_detector.py::test_safe_response_passes",
   "tests/test_detector.py::test_unsafe_behavior_is_flagged_for_safe_baseline",
