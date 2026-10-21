@@ -1,19 +1,23 @@
 
 from fastapi import FastAPI
+from app.core.middleware import RequestSizeLimitMiddleware
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.api.routes import router as security_test_router
+from app.core.config import settings
+
 
 app = FastAPI(
-    title="PromptShield AI",
+    title=settings.app_name,
     description="AI application security testing platform",
-    version="0.1.0",
+    version=settings.app_version,
 )
 
-# Temporary local-development configuration.
-# Restrict origins before production deployment.
+app.add_middleware(RequestSizeLimitMiddleware)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=settings.allowed_origins,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type", "Authorization"],
@@ -26,7 +30,7 @@ app.include_router(security_test_router)
 def root():
     return {
         "message": "Welcome to PromptShield AI",
-        "version": "0.1.0",
+        "version": settings.app_version,
     }
 
 
@@ -35,5 +39,5 @@ def health_check():
     return {
         "status": "healthy",
         "service": "promptshield-ai",
-        "version": "0.1.0",
+        "version": settings.app_version,
     }

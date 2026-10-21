@@ -72,3 +72,59 @@ def test_reject_empty_categories():
     )
 
     assert response.status_code == 422
+
+
+def test_reject_duplicate_categories():
+    response = client.post(
+        "/api/v1/security-tests/run",
+        json={
+            "target_id": "demo-chatbot",
+            "categories": [
+                "prompt_injection",
+                "prompt_injection",
+            ],
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_cors_allows_configured_frontend_origin():
+    response = client.options(
+        "/api/v1/health",
+        headers={
+            "Origin": "http://localhost:5173",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 200
+    assert (
+        response.headers["access-control-allow-origin"]
+        == "http://localhost:5173"
+    )
+
+
+def test_cors_rejects_unconfigured_frontend_origin():
+    response = client.options(
+        "/api/v1/health",
+        headers={
+            "Origin": "https://untrusted.example",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert "access-control-allow-origin" not in response.headers
+
+
+def test_reject_oversized_request_body():
+    oversized_body = b"x" * (1_048_576 + 1)
+
+    response = client.post(
+        "/api/v1/security-tests/run",
+        content=oversized_body,
+        headers={"Content-Type": "application/json"},
+    )
+
+    assert response.status_code == 413
+    assert response.json()["detail"] == "Request body too large."
